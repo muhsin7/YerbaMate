@@ -12,40 +12,103 @@ class UserCard extends StatefulWidget {
   State<UserCard> createState() => _UserCardState();
 }
 
+
 class _UserCardState extends State<UserCard> {
   @override
-  Widget build(BuildContext context) => Stack(
-        children: [
-          Container(
-            height: 500,
-            width: 300,
-            decoration: BoxDecoration(
-                color: const Color(0x888888),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 2,
-                ),
-                image: const DecorationImage(
-                  image: AssetImage('default-image.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(20)),
-          ),
-          Container(
-            child: Positioned.fill(
-                child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: [
-                      Colors.white.withOpacity(0.3),
-                      Colors.black.withOpacity(0.3),
-                    ]),
-              ),
-            )),
+  Widget build(BuildContext context) => ClipRRect(
+    borderRadius: BorderRadius.circular(20),
+    child: Container(
+      height: 500,
+      width: 300,
+      
+      child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.transparent, Colors.green],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.7, 1.0],
           )
-        ],
-      );
+          ),
+          child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              const Spacer(),
+              profileInfo(),
+            ],
+          ),
+        ),
+      ),
+      decoration: const BoxDecoration(
+          color: const Color(0x888888),
+          image: DecorationImage(
+            image: AssetImage('default-image.jpg'),
+            fit: BoxFit.cover,
+          ),
+          ),
+      ),
+    );
+
+    Widget profileInfo() => Column(
+      children: [
+        nameAgeRow(),
+        otherInfo()
+      ],
+    );
+
+    Widget nameAgeRow() => Row(
+      
+      children: [
+        Text(
+          "Test name",
+          style: TextStyle(
+            fontSize: 28,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+          const SizedBox(width: 10),
+          Text(
+          "18",
+          style: TextStyle(
+            fontSize: 28,
+            color: Colors.white,
+          ),
+        ),
+
+      ],
+    );
+
+    Widget otherInfo() => Column(
+      children: [
+        Row(
+          children: [
+            Icon(Icons.work, color: Colors.white),
+            const SizedBox(width: 12),
+            Text("Software Engineer (real)", style: otherInfoStyles())
+          ],
+        ),
+        Row(
+          children: [
+            Icon(Icons.school, color: Colors.white),
+            const SizedBox(width: 12),
+            Text("Works at Google (lie)", style: otherInfoStyles())
+          ],
+        ),
+        Row(
+          children: [
+            Icon(Icons.coffee, color: Colors.white),
+            const SizedBox(width: 12),
+            Text("Masala Chai", style: otherInfoStyles()),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.info), iconSize: 10, color: Colors.white,)
+          ],
+        )
+      ],
+    );
+
+    TextStyle otherInfoStyles() => TextStyle(
+      fontSize: 16,
+      color: Colors.white,
+    );
 }
