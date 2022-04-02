@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yerba_mate/actionbuttons.dart';
 import 'usercard.dart';
 
 void main() {
@@ -80,7 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: UserCard(user: "Test")
+        child: Column(
+          children: [
+            UserCard(user: "Test"),
+          ],
+        )
         
         ),
         // Center is a layout widget. It takes a single child and positions it

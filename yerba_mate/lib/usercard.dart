@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'actionbuttons.dart';
+
 
 class UserCard extends StatefulWidget {
   final String user;
@@ -15,7 +17,16 @@ class UserCard extends StatefulWidget {
 
 class _UserCardState extends State<UserCard> {
   @override
-  Widget build(BuildContext context) => ClipRRect(
+  Widget build(BuildContext context) => Column(
+    children: [
+      makeCard(),
+      ActionButtons(),
+    ],
+  );
+
+
+
+    makeCard() => ClipRRect(
     borderRadius: BorderRadius.circular(20),
     child: Container(
       height: 500,
@@ -27,7 +38,7 @@ class _UserCardState extends State<UserCard> {
               colors: [Colors.transparent, Colors.green],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              stops: [0.7, 1.0],
+              stops: [0.6, 1.0],
           )
           ),
           child: Container(
@@ -43,13 +54,13 @@ class _UserCardState extends State<UserCard> {
       decoration: const BoxDecoration(
           color: const Color(0x888888),
           image: DecorationImage(
-            image: AssetImage('default-image.jpg'),
+            image: AssetImage('linus.jpg'),
             fit: BoxFit.cover,
           ),
           ),
       ),
     );
-
+    
     Widget profileInfo() => Column(
       children: [
         nameAgeRow(),
