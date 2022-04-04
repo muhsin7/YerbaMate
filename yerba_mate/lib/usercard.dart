@@ -72,13 +72,13 @@ class _UserCardState extends State<UserCard> {
       
       children: [
         Text(
-          "Test name",
+          "Linus",
           style: TextStyle(
             fontSize: 28,
             color: Colors.white,
             fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
           const SizedBox(width: 10),
           Text(
           "18",
@@ -111,7 +111,7 @@ class _UserCardState extends State<UserCard> {
           children: [
             Icon(Icons.coffee, color: Colors.white),
             const SizedBox(width: 12),
-            Text("Masala Chai", style: otherInfoStyles()),
+            Text("Tea", style: otherInfoStyles()),
             IconButton(onPressed: () {}, icon: const Icon(Icons.info), iconSize: 10, color: Colors.white,)
           ],
         )

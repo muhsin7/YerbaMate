@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yerba_mate/actionbuttons.dart';
 import 'usercard.dart';
+import 'loginform.dart';
+import 'registerform.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        MyHomePage.route: (context) => MyHomePage(title: "Home page"),
+        LoginPage.route: (context) => LoginPage()
+      },
       debugShowCheckedModeBanner: false,
       title: 'Yerba Mate',
       theme: ThemeData(
@@ -27,12 +34,54 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
+class LoginPage extends StatefulWidget {
+  static const String route = "/login";
+
+
+  @override
+  State<StatefulWidget> createState() => _LoginPageState();
+
+  }
+
+class _LoginPageState extends State<LoginPage>{
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(length: 2,
+    child: Scaffold(
+      appBar: AppBar(
+        title: Text("Login/Register"),
+        bottom: TabBar(
+          tabs: [
+            Padding(padding: EdgeInsets.all(20), child: Text("Login"),),
+            Padding(padding: EdgeInsets.all(20), child: Text("Register"),)
+          ],
+        ),
+      ),
+
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Center(
+          child: TabBarView(
+            children: [
+              Column( children: [ LoginForm() ], ),
+              Column( children: [ RegisterForm() ],)
+              ],
+               )
+            )
+          )
+    ));
+  }
+  
+}
+
 class MyHomePage extends StatefulWidget {
+  static const String route = "/";
+
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -81,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
           child: Column(
         children: [
+          TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())), child: Text("hello"),),
           UserCard(user: "Linus"),
         ],
       )),
