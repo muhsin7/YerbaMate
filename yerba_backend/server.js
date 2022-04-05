@@ -7,13 +7,15 @@ const session = require('express-session')
 const mailer = require('nodemailer')
 const cors = require('cors')
 
+require('dotenv').config()
+
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'yerbamateapp@gmail.com',
-    pass: 'testingpassword123'
+    pass: process.env.PASS
   }
 });
 
