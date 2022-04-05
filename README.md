@@ -9,6 +9,7 @@ Built using Flutter, Dart for frontend and Express (NodeJS) for backend (and to 
 
 ```
 cd .\yerba_backend\
+npm i
 npm run devStart
 ```
 4. Find application running on `localhost:3000/#/`
