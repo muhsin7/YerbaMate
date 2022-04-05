@@ -1,7 +1,7 @@
 node_modules/
-build/
-android/
-ios/
+*/yerba_mate/android/
+*/yerba_mate/ios/
+*/yerba_mate/windows/
 
 
 # Miscellaneous
@@ -35,7 +35,6 @@ ios/
 .packages
 .pub-cache/
 .pub/
-/build/
 
 # Web related
 lib/generated_plugin_registrant.dart

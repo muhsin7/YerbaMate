@@ -38,10 +38,13 @@ class UserCard extends StatelessWidget {
               ),
             ),
           ),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: const Color(0x888888),
             image: DecorationImage(
-              image: AssetImage('assets/images/linus.jpg'),
+              image: user.imagepath != null
+                  ? Image.asset('assets/images/${user.imagepath}')
+                      as ImageProvider
+                  : AssetImage('assets/images/default-image.jpg'),
               fit: BoxFit.cover,
             ),
           ),
