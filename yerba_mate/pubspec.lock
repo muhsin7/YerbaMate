@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  exifdart:
+    dependency: transitive
+    description:
+      name: exifdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0+3"
   fake_async:
     dependency: transitive
     description:
@@ -95,6 +102,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  image_whisperer:
+    dependency: "direct main"
+    description:
+      name: image_whisperer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.1"
   lints:
     dependency: transitive
     description:

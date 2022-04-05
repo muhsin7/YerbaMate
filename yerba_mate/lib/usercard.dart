@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'actionbuttons.dart';
 import 'usermodel.dart';
@@ -42,9 +44,10 @@ class UserCard extends StatelessWidget {
             color: const Color(0x888888),
             image: DecorationImage(
               image: user.imagepath != null
-                  ? Image.asset('assets/images/${user.imagepath}')
-                      as ImageProvider
-                  : AssetImage('assets/images/default-image.jpg'),
+                  ? NetworkImage(
+                      '/assets/assets/assets/images/${user.imagepath}')
+                  : const AssetImage('assets/images/default-image.jpg')
+                      as ImageProvider,
               fit: BoxFit.cover,
             ),
           ),

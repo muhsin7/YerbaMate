@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.4
   api_cache_manager: ^1.0.1
+  image_whisperer: ^0.11.1
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,10 @@ flutter:
   assets:
     - assets/assets/images/default-image.jpg
     - assets/assets/images/linus.jpg
+    - assets/assets/images/person1.jpg
+    - assets/assets/images/person2.jpeg
+    - assets/assets/images/person3.jpeg
+    - assets/assets/images/person4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

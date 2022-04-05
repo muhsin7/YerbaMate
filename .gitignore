@@ -2,6 +2,7 @@ node_modules/
 */yerba_mate/android/
 */yerba_mate/ios/
 */yerba_mate/windows/
+build/windows
 
 
 # Miscellaneous

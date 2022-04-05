@@ -29,6 +29,8 @@ app.use(session(
     }
 ))
 app.use(express.static(path.join(__dirname, '../yerba_mate/build/web')))
+app.use(express.static(path.join(__dirname, '../yerba_mate/build/web/assets')))
+
 
 app.use(cors(
     {
