@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:yerba_mate/actionbuttons.dart';
+import 'package:yerba_mate/sharedservice.dart';
 import 'usercard.dart';
 import 'loginpage.dart';
 import 'homepage.dart';
 
+Widget _homepage = LoginPage();
 
-void main() {
+void main() async {
+  bool _result = await SharedService.isLoggedIn();
+    if (_result) {
+      _homepage = const HomePage();
+    }
+
   runApp(const MyApp());
 }
 
@@ -18,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        HomePage.route: (context) => HomePage(),
+        HomePage.route: (context) => _homepage,
         LoginPage.route: (context) => LoginPage()
       },
       debugShowCheckedModeBanner: false,

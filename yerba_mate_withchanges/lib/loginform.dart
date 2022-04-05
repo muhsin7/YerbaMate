@@ -87,32 +87,32 @@ class _LoginFormState extends State<LoginForm> {
   );
 
   Future<http.Response> getLoginCheck(email, pass) async {
-      var url ='localhost:3000/api/login';
+      // var url ='localhost:3000/login';
 
-      Map data = {
-        'email': email,
-        'password': pass
-      };
-      //encode Map to JSON
-      var body = json.encode(data);
+      // Map data = {
+      //   'email': email,
+      //   'password': pass
+      // };
+      // //encode Map to JSON
+      // var body = json.encode(data);
 
       print("REACHED HERE");
-      var response = await http.post(Uri.parse(url),
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, HEAD"},
-          body: body,
-      );
+      // var response = await http.post(Uri.parse(url),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       "Access-Control-Allow-Origin": "*",
+      //       "Access-Control-Allow-Methods": "GET, HEAD"},
+      //     body: body,
+      // );
 
       Map<String, String> useHeaders = { 
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
           };
-      // var response = await http.post(
-      //   Uri.parse('api/login'),
-      //   headers: useHeaders,
-      // );
+      var response = await http.get(
+        Uri.parse('api/login'),
+        headers: useHeaders,
+      );
       
       SharedService.setLoginDetails(response.body);
       return response;

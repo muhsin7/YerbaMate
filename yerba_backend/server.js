@@ -42,7 +42,7 @@ app.use(session(
         saveUninitialized: false
     }
 ))
-app.use(express.static(path.join(__dirname, 'flutter_build')))
+app.use(express.static(path.join(__dirname, '../yerba_mate/build/web')))
 // app.use(express.static(path.join(__dirname, 'ublic')))
 
 app.use(cors(
@@ -117,19 +117,25 @@ app.post('/api/login',
         // res.append('Access-Control-Allow-Origin', '*');
         // res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         // res.append('Access-Control-Allow-Headers', 'Content-Type');
-        const user = users.find(user => user.name == req.body.name)
+        const user = users.find(user => user.email == req.body.email)
         // console.log(users)
         // console.log(req.body)
         if(user == null) {
             return res.status(400).send('No user found')
         }
         else {
-            res.locals.name = user.name
+            res.locals.email = user.email
             next()
         }
         try {
             if(await bcrypt.compare(req.body.password, user.password)){
-                res.send('Success')
+                res.status(200).send({
+                    "id": user.id,
+                    "email": user.email,
+                    "name": user.name,
+                    "profileData": user.profileData,
+                    "mock": user.mock
+                })
             } else {
                 res.status(401).send("Not allowed")
             }

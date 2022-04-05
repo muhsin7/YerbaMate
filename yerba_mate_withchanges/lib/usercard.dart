@@ -54,7 +54,7 @@ class _UserCardState extends State<UserCard> {
       decoration: const BoxDecoration(
           color: const Color(0x888888),
           image: DecorationImage(
-            image: AssetImage('assets/images/linus.jpg'),
+            image: AssetImage('linus.jpg'),
             fit: BoxFit.cover,
           ),
           ),
