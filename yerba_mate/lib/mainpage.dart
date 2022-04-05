@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +23,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
           child: Column(
-        children: [
-          UserCard(user: "Linus")
-        ],
+        children: [Text("nothing to see here")],
       )),
     );
   }
@@ -34,11 +31,10 @@ class _HomePageState extends State<HomePage> {
   // getFrontPageBody() async {
   //   bool _logged = await SharedService.isLoggedIn();
   //   if(_logged){
-  //         // 
+  //         //
   //   }
-  //   else {  
+  //   else {
   //       return TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())), child: Text("hello"),);
   //   }
   // }
 }
-

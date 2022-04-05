@@ -9,28 +9,14 @@ const cors = require('cors')
 
 var nodemailer = require('nodemailer');
 
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'yerbamateapp@gmail.com',
-//     pass: 'testingpassword123'
-//   }
-// });
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'yerbamateapp@gmail.com',
+    pass: 'testingpassword123'
+  }
+});
 
-// var mailOptions = {
-//   from: 'youremail@gmail.com',
-//   to: 'hhwiu1079@gmail.com',
-//   subject: 'Sending Email using Node.js',
-//   text: 'That was easy!'
-// };
-
-// transporter.sendMail(mailOptions, function(error, info){
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
 
 app.use(express.json())
 app.use(bodyParser.json({extended: true}))
@@ -43,7 +29,6 @@ app.use(session(
     }
 ))
 app.use(express.static(path.join(__dirname, '../yerba_mate/build/web')))
-// app.use(express.static(path.join(__dirname, 'ublic')))
 
 app.use(cors(
     {
@@ -52,29 +37,62 @@ app.use(cors(
 ))
 
 module.exports = app
-// app.use(cors(
-//     {
-//         credentials: true,
-//         origin: true
-//     }
-// ))
-// app.use((req, res, next) => {
-//     res.append('Access-Control-Allow-Origin', '*');
-//     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.append('Access-Control-Allow-Headers', 'Content-Type');
-//     next();
-// });
 
 
 const users = [
     {
-        "id": 1648999519692.8813,
+        "id": 1648999519692,
         "email": "hhwiu1079@gmail.com",
         "name": "Linus",
         "password": "$2b$10$6scq4K9W5BGzoLJvzAHA7OcjJyIV3L83WpM.CRugbwUz.fEnfu9ry",
         "profileData": {},
         "mock": true
     },
+    {
+        id: 1,
+        name: "Jasmine Good",
+        bio: "magna. Phasellus dolor elit, pellentesque",
+        location: "Western Australia",
+        age: 32,
+        designation: "Proin",
+        interests: ["tennis", "programming", "something"],
+      },
+      {
+        id: 2,
+        name: "Nita Stokes",
+        bio: "ut, nulla. Cras eu tellus",
+        location: "Chhattisgarh",
+        age: 18,
+        designation: "per",
+        interests: ["tennis", "programming", "something"],
+      },
+      {
+        id: 3,
+        name: "Keefe Lyons",
+        bio: "eu dolor egestas rhoncus. Proin",
+        location: "São Paulo",
+        age: 35,
+        designation: "vulputate",
+        interests: ["tennis", "programming", "something"],
+      },
+      {
+        id: 4,
+        name: "Ivory Sawyer",
+        bio: "Ut sagittis lobortis mauris. Suspendisse",
+        location: "Piemonte",
+        age: 35,
+        designation: "dolor",
+        interests: ["tennis", "programming", "something"],
+      },
+      {
+        id: 5,
+        name: "Vance England",
+        bio: "amet massa. Quisque porttitor eros",
+        location: "Azad Kashmir",
+        age: 28,
+        designation: "pede,",
+        interests: ["tennis", "programming", "something"],
+      }
 ]
 
 const interactions = [
@@ -97,12 +115,12 @@ app.post('/api/register', async (req, res) => {
     try {
         // const salt = await bcrypt.genSalt()
         const hashedPass = await bcrypt.hash(req.body.password, 10)
-        const generatedID = Date.now()+(Math.random()*100)
+        const generatedID = parseInt(intDate.now()+(Math.random()*100)) 
         setMock = !req.body.mock ? false : req.body.mock
         // if(!req.body.mock) {
         //     setMock = false
         // } else { setMock = req.body.mock }
-        const user = { id:  generatedID, email: req.body.email, name: req.body.name, password: hashedPass, profileData: {interests: []}, mock: setMock }
+        const user = { id:  generatedID, email: req.body.email, name: req.body.name, password: hashedPass, profileData: {interests: req.body.profileData.interests}, mock: setMock }
         users.push(user)
         res.status(201).send()
     } catch {
@@ -147,7 +165,6 @@ app.post('/api/login',
         req.session.loggedIn = true
         req.session.name = res.locals.name
         console.log(req.session)
-        res.redirect('/profile')
     }
 )
 
@@ -171,19 +188,25 @@ app.patch('/api/profile/update', (req, res) => {
     res.redirect('/profile')
 })
 
-app.get('/api/match/:id', (req, res) => {
-    const curUser = users.find(user => user.name == req.session.name)
-    const checkMatchUser = users.find(user => user.id = req.params.id)
+app.get('/api/match/:fromID/:toID', (req, res) => {
+    const curUser = users.find(user => user.id == req.params.fromID)
+    const checkMatchUser = users.find(user => user.id = req.params.toID)
 
     interactedByUser = interactions.find(interaction => (curUser.id == interaction.p2 && checkMatchUser.id == interaction.p1))
 
-    if(!interactedByUser) {
+
+    if(checkMatchUser.mock) {
+        successfulMatch();
+    }
+
+    if(interactedByUser != null) {
         if(interactedByUser.interCategory == "liked") {
             interactions.push({
                 "p1": curUser.id,
                 "p2": checkMatchUser.id,
                 "interCategory": "matched"
             })
+            successfulMatch();
         }
         else if (interactedByUser.interCategory == "disliked") {
             // action to perform if unliked
@@ -194,6 +217,26 @@ app.get('/api/match/:id', (req, res) => {
         else {
             res.status(400).send("invalid interaction")
         }
+    };
+
+    function successfulMatch()  {
+            mailContent =  `You've matched with ${ checkMatchUser.name } on YerbaMate. Contact them via ${ checkMatchUser.email }. In case you don't know what to talk about, their interests are ${ checkMatchUser.profileData.interests }`
+
+            var mailOptions = {
+              from: 'yerbamateapp@gmail.com',
+              to: curUser.email,
+              subject: "You've matched with someone in YerbaMate!",
+              text: mailContent
+            };
+
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+              } else {
+                console.log('Email sent: ' + info.response);
+              }
+            });
+            res.status(200).send("Matched");
     }
         
     
