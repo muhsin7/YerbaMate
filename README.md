@@ -27,3 +27,5 @@ NOTE: the flutter app alone is disconnected from the express backend. To host a 
 ```cmd
 flutter build web
 ```
+Run the first set of instructions to run the application again if you terminated the `nodemon` process.
+If you didn't, type `rs` in the terminal to restart the server to reflect the new changes (if it didn't automatically detect the change).
